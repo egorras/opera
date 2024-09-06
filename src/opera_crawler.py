@@ -75,7 +75,7 @@ class OperaCrawler:
                 'id': post.get('data-ksys-id'),
                 'title': post.find('a', class_='post-title-link').contents[0].strip(),
                 'is_rehearsal': post.find('span', class_='tag tag--premier', text='rehearsal') is not None,
-                'show_url': self.base_url + '/'.join(post.find('h2', class_='post-title').a.get('href'),
+                'show_url': self.base_url + '/'.join(post.find('h2', class_='post-title').a.get('href')),
                 'tags': [tag.contents[0].strip() for tag in post.find_all('span', class_='tag')],
                 'location': post.find('span', class_='post-location-name').contents[0].strip(),
                 'duration': duration_in_minutes
