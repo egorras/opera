@@ -1,0 +1,39 @@
+name: Run Opera Crawler
+
+# Controls when the action will run
+on:
+  # Triggers the workflow on push or pull requests to the main branch
+  push:
+    branches: [ main ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  run-crawler:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Run the script
+      - name: Run Opera Crawler
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_SHOWS_DATABASE_ID: ${{ secrets.NOTION_SHOWS_DATABASE_ID }}
+        run: |
+          cd src
+          python main.py
