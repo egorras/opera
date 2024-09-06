@@ -1,5 +1,5 @@
 from datetime import datetime
-from src.opera_crawler import OperaCrawler
+from opera_crawler import OperaCrawler
 
 def main():
     # Initialize the main services

@@ -20,7 +20,7 @@ class OperaCrawler:
         
     def format_url(self, year, month):
         """Format the URL by inserting year and month."""
-        return self.base_url.format(year=year, month=month)
+        return f"{self.base_url}/en/programme/?y={year}&m={month}"
 
     def fetch_page(self, url):
         """Fetch the page content from the URL."""
