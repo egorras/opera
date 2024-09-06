@@ -67,12 +67,18 @@ class OperaCrawler:
         
         soup = BeautifulSoup(html_content, 'html.parser')
         for post in soup.findAll('article', class_='post'):
+            # Extract the duration in minutes
+            duration_text = post.find('div', class_='post-length').contents[0].strip()
+            duration_in_minutes = int(duration_text.split()[0])  # Extract the number part
+
             event_data = {
                 'id': post.get('data-ksys-id'),
                 'title': post.find('a', class_='post-title-link').contents[0].strip(),
                 'is_rehearsal': post.find('span', class_='tag tag--premier', text='rehearsal') is not None,
-                'show_url': self.base_url + '/'.join(post.find('h2', class_='post-title').a.get('href').split('/')[:-1]),
-                'tags': [tag.contents[0].strip() for tag in post.find_all('span', class_='tag')]
+                'show_url': self.base_url + '/'.join(post.find('h2', class_='post-title').a.get('href'),
+                'tags': [tag.contents[0].strip() for tag in post.find_all('span', class_='tag')],
+                'location': post.find('span', class_='post-location-name').contents[0].strip(),
+                'duration': duration_in_minutes
             }
             self.notion_shows_handler.try_push_show_to_notion(event_data)
             logging.info(event_data)
