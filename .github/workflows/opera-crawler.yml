@@ -32,6 +32,7 @@ jobs:
       # Run the script
       - name: Run Opera Crawler
         env:
+          BASE_URL: ${{ secrets.BASE_URL }}
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
           NOTION_SHOWS_DATABASE_ID: ${{ secrets.NOTION_SHOWS_DATABASE_ID }}
         run: |
